@@ -8,3 +8,15 @@ System.out.println("Correcto");
 System.out.println("Incorrecto");
 }
 ```
+
+## Actualizado
+
+```java
+boolean a = true;
+
+if (a) {
+    System.out.println("Correcto");
+} else {
+    System.out.println("Incorrecto");
+}
+``` 

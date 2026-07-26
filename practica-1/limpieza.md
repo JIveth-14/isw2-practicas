@@ -11,9 +11,9 @@ System.out.println("Incorrecto");
 
 ## Code Smells encontrados
 
-La variable `x` tiene un nombre poco descriptivo.
+La variable x tiene un nombre poco descriptivo.
 El codigo no está correctamente indentado.
-La comparación `a == true` es innecesaria.
+La comparación a == true es innecesaria.
 El codigo puede mejorar su legibilidad siguiendo buenas practicas.
 
 ## Actualizado
@@ -30,9 +30,9 @@ if (a) {
 
 ## Cambios realizados
 
-Se elimino la comparación `== true`.
+Se elimino la comparación == true.
 Se mejoró la indentación del codigo.
-Se utilizo una variable de tipo `boolean`.
+Se utilizo una variable de tipo boolean.
 Se aumentó la legibilidad del codigo.
 
    

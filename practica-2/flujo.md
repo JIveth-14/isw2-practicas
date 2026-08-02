@@ -14,3 +14,7 @@ Para una aplicación web usaría Trunk-Based Development, porque permite integra
 realizar despliegues frecuentes y detectar errores rápidamente mediante pruebas automatizadas. Además, reduce los conflictos de fusión y
 favorece el trabajo colaborativo del equipo. Este modelo es especialmente adecuado para aplicaciones web modernas que necesitan recibir mejoras
 constantes y ofrecer nuevas funcionalidades de manera rápida a los usuarios.
+
+## Conclusión
+Trunk-Based Development es la mejor opción para una aplicación web que requiere cambios frecuentes y despliegues continuos, 
+mientras que GitFlow es más adecuado para proyectos con versiones grandes y ciclos de desarrollo más largos.

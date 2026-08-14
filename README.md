@@ -20,4 +20,4 @@ Carrera: Ingeniería en Sistemas
 - Práctica 8
 - Práctica 9
 
-Práctica realizada por Jesse Dubón.
+Práctica realizada por Jessica Dubón.

@@ -44,6 +44,21 @@ test("Monto 0, 5 días vencidos → 0", () => {
   assertEqual(calcularMora(0, 5), 0);
 });
 
+// --- Más casos borde -------------------------------------------------------
+test("Monto con decimales, vencido → 5% exacto", () => {
+  assertEqual(calcularMora(150.5, 3), 7.525);
+});
+
+test("diasVencidos null lanza error", () => {
+  let error = false;
+  try {
+    calcularMora(100, null);
+  } catch (e) {
+    error = true;
+  }
+  if (!error) throw new Error("Debió lanzar error para diasVencidos null");
+});
+
 // --- Fase RED: casos que deben lanzar error --------------------------------
 test("Monto negativo lanza error", () => {
   let error = false;

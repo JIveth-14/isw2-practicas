@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Citas Médicas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Sistema clínico</p>
+          <h1>Gestión de Citas Médicas</h1>
+        </div>
+        <div class="header-actions">
+          <button id="backupBtn" class="secondary">Exportar JSON</button>
+          <label class="file-button secondary">
+            <input id="restoreInput" type="file" accept="application/json" />
+            Importar JSON
+          </label>
+        </div>
+      </header>
+
+      <nav class="tabs" aria-label="Secciones principales">
+        <button class="tab active" data-view="patients">Pacientes</button>
+        <button class="tab" data-view="doctors">Médicos</button>
+        <button class="tab" data-view="appointments">Citas</button>
+        <button class="tab" data-view="audit">Auditoría</button>
+      </nav>
+
+      <main class="content">
+        <section id="patients" class="panel active-view">
+          <div class="panel-header">
+            <h2>Pacientes</h2>
+          </div>
+          <form id="patientForm" class="form-grid">
+            <input type="hidden" id="patientId" />
+            <label>
+              Nombre completo
+              <input name="nombre" required />
+            </label>
+            <label>
+              Cédula
+              <input name="cedula" required />
+            </label>
+            <label>
+              Fecha de nacimiento
+              <input name="fechaNacimiento" type="date" required />
+            </label>
+            <label>
+              Género
+              <select name="genero">
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
+            <label>
+              Teléfono
+              <input name="telefono" required />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" required />
+            </label>
+            <label class="full-width">
+              Dirección
+              <input name="direccion" required />
+            </label>
+            <div class="form-actions full-width">
+              <button type="submit" class="primary">Guardar paciente</button>
+              <button type="button" id="cancelPatientEdit" class="secondary hidden">Cancelar</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cédula</th>
+                  <th>Teléfono</th>
+                  <th>Email</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="patientsTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="doctors" class="panel">
+          <div class="panel-header">
+            <h2>Médicos</h2>
+          </div>
+          <form id="doctorForm" class="form-grid">
+            <input type="hidden" id="doctorId" />
+            <label>
+              Nombre completo
+              <input name="nombre" required />
+            </label>
+            <label>
+              Número de colegiado
+              <input name="numeroColegido" required />
+            </label>
+            <label>
+              Especialidad
+              <input name="especialidad" required />
+            </label>
+            <label>
+              Teléfono
+              <input name="telefono" required />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" required />
+            </label>
+            <label>
+              Horario inicio
+              <input name="horarioInicio" type="time" required />
+            </label>
+            <label>
+              Horario fin
+              <input name="horarioFin" type="time" required />
+            </label>
+            <div class="form-actions full-width">
+              <button type="submit" class="primary">Guardar médico</button>
+              <button type="button" id="cancelDoctorEdit" class="secondary hidden">Cancelar</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Colegiado</th>
+                  <th>Especialidad</th>
+                  <th>Horario</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="doctorsTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="appointments" class="panel">
+          <div class="panel-header">
+            <h2>Citas médicas</h2>
+            <button id="exportCsvBtn" class="secondary">Exportar CSV</button>
+          </div>
+
+          <div id="reminders" class="reminders"></div>
+
+          <form id="appointmentForm" class="form-grid">
+            <input type="hidden" id="appointmentId" />
+            <label>
+              Paciente
+              <select id="appointmentPatient" name="pacienteId" required></select>
+            </label>
+            <label>
+              Médico
+              <select id="appointmentDoctor" name="medicoId" required></select>
+            </label>
+            <label>
+              Fecha
+              <input name="fecha" type="date" required />
+            </label>
+            <label>
+              Hora
+              <input name="hora" type="time" required />
+            </label>
+            <label>
+              Tipo de consulta
+              <select name="tipoCita">
+                <option value="presencial">Presencial</option>
+                <option value="virtual">Virtual</option>
+              </select>
+            </label>
+            <label>
+              Estado
+              <select name="estado">
+                <option value="agendada">Agendada</option>
+                <option value="completada">Completada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </label>
+            <label class="full-width">
+              Motivo
+              <input name="motivo" required />
+            </label>
+            <label class="full-width">
+              Notas
+              <textarea name="notas" rows="3"></textarea>
+            </label>
+            <div class="form-actions full-width">
+              <button type="submit" class="primary">Guardar cita</button>
+              <button type="button" id="cancelAppointmentEdit" class="secondary hidden">Cancelar</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Paciente</th>
+                  <th>Médico</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="appointmentsTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="audit" class="panel">
+          <div class="panel-header">
+            <h2>Auditoría</h2>
+          </div>
+          <ul id="auditList" class="audit-list"></ul>
+        </section>
+      </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

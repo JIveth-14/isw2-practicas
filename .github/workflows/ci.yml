@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, feature/** ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Run Práctica 4 - Fiados Tests
+      run: node practica-4/fiados.test.js
+
+    - name: Run Práctica 4 Citas - Business Tests
+      run: node --test practica-4_Citas/tests/business.test.js

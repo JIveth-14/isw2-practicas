@@ -1,39 +1,70 @@
 # Práctica 8: Pipeline Verde + URL Viva
 
-## Descripción
+## Criterios de éxito - Completados
 
-Pipeline CI/CD implementado con GitHub Actions para ejecutar tests automatizados en cada push y PR. GitHub Pages configurado para servir la página de prácticas en una URL pública.
+- [x] Workflow CI/CD en .github/workflows/ci.yml
+- [x] Run verde visible en GitHub Actions
+- [x] URL pública respondiendo (GitHub Pages)
+- [x] Branch protection activo en main
+- [x] Pull request mergeado exitosamente
 
-## Componentes
+## URLs Públicas
 
-### Workflow CI/CD (.github/workflows/ci.yml)
+**GitHub Pages (Portfolio de prácticas):**
+https://jiveth-14.github.io/isw2-practicas/
 
-El pipeline ejecuta los siguientes tests:
-- **Práctica 4 - Fiados**: Test runner personalizado que valida la lógica de cálculo de mora (5% cuando hay días vencidos)
-- **Práctica 4 Citas - Business**: Tests funcionales usando node:test para validar requisitos de gestión de citas médicas
+**Workflow CI/CD:**
+https://github.com/JIveth-14/isw2-practicas/actions/workflows/ci.yml
 
-Triggers:
-- Push a ramas main y feature/**
-- Pull Requests a main
+**Run Verde más reciente:**
+https://github.com/JIveth-14/isw2-practicas/actions/runs/34918377334
 
-### GitHub Pages
+## Workflow CI/CD (.github/workflows/ci.yml)
 
-URL pública: https://jiveth-14.github.io/isw2-practicas/
+Ejecuta en cada push y PR a main:
 
-Deploy desde la rama main, sirviendo index.html con links a todas las prácticas.
+```
+Triggers: push (main, feature/**) | pull_request (main)
+Node.js: 18.x
+Tests:
+  - practica-4/fiados.test.js (cálculo de mora - TDD)
+  - practica-4_Citas/tests/business.test.js (gestión de citas médicas)
+```
+
+Estado actual: **VERDE** ✓
+
+## Branch Protection (main)
+
+Configuración:
+- Require status checks: CI workflow debe pasar
+- Strict mode: Requiere que PR esté actualizado con main
+- Enforce for admins: Deshabilitado
+
+El repo se defiende automáticamente: ningún código llega a main sin que el pipeline pase.
+
+## GitHub Pages
+
+- Source: Deploy from branch (main, root directory)
+- Status: Active
+- URL: https://jiveth-14.github.io/isw2-practicas/
+- Content: index.html con portfolio de 6 prácticas
 
 ## Qué corre el pipeline
 
 1. Checkout del código
-2. Setup de Node.js 18.x
-3. Ejecución de tests de Práctica 4 (fiados)
-4. Ejecución de tests de Práctica 4 Citas (business)
-5. Report de resultado (pasa/falla)
+2. Setup Node.js 18.x
+3. Ejecutar practica-4/fiados.test.js (8 tests)
+4. Ejecutar practica-4_Citas/tests/business.test.js (5 tests)
+5. Report final (pase/falle)
 
-## Mejoras futuras
+Tiempo típico: ~10 segundos por run
 
-- Añadir linting (ESLint) con prettier
-- E2E tests para flujos de usuario completos
-- Coverage reports (nyc) para medir cobertura de tests
-- Notificaciones de fallos en Slack
-- Deployment automático a staging en cada PR
+## Mejoras futuras posibles
+
+- Linting (ESLint) + formato (Prettier)
+- Coverage reports (nyc) para cobertura de código
+- E2E tests para flujos completos
+- Notificaciones en Slack de fallos
+- Deployment automático a staging/preview en cada PR
+- Performance benchmarks
+- Security scanning (dependencies)
